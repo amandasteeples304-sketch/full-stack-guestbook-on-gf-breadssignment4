@@ -17,5 +17,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(8080, () => {
-  console.log("Server is alive on http://localhost:8080");
+  console.log("Server is alive on https://server-fmc0.onrender.com");
 });

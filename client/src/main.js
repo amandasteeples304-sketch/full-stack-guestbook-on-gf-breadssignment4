@@ -1,9 +1,9 @@
 const display = document.getElementById("app");
 const form = document.getElementById("form");
-const baseURL = "http://localhost:4242";
+const baseURL = "https://client-f4df.onrender.com";
 
 async function fetchData() {
-  const response = await fetch("${baseURL}/gfBreadGuest");
+  const response = await fetch("${baseURL}");
   const gfBreadGuest = await response.json();
 
   console.log(gfBreadGuest);
@@ -35,7 +35,7 @@ async function handleSubmit(event) {
   const userInput = Object.fromEntries(formData);
   const userInputJSON = JSON.stringify(userInput);
 
-  const response = await fetch("${baseURL}/gfBreadGuest", {
+  const response = await fetch("${baseURL}", {
     headers: {
       "Content-Type": "application/json",
     },
