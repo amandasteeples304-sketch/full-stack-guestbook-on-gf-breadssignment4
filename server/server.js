@@ -36,5 +36,5 @@ app.post("/gfbread", async (request, response) => {
 });
 
 app.listen(process.env.PORT || 5432, () => {
-  console.log("Server is alive on http://server-fmc0.onrender.com");
+  console.log("Server is alive on https://server-fmc0.onrender.com");
 });
