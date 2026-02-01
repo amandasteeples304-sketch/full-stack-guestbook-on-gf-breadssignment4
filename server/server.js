@@ -16,9 +16,22 @@ app.get("/", (request, response) => {
   response.json({ message: "You've reached the GF Bread Guestbook server!" });
 });
 
-app.get("/gfBread", async (req, res) => {
-  const gfBread = await db.query("SELECT * FROM gf_bread_guestbook");
-  response.json(gfBread);
+app.get("/gfbread", async (request, response) => {
+  const gfBread = await db.query("SELECT * FROM gfbread;");
+  console.log(request);
+  response.json(gfBread.rows);
+});
+
+app.post("/gfbread", async (request, response) => {
+  console.log(request.body);
+  const nameFromClient = request.body.name;
+  const breadFromClient = request.body.bread;
+  const opinionFromClient = request.body.opinion;
+  const data = db.query(
+    `INSERT INTO gfbread (msg_name, bread_brand, opinion) VALUES ($1, $2, $3);`,
+    [nameFromClient, breadFromClient, opinionFromClient],
+  );
+  response.status(201).json({ message: "GF Bread Guestbook entry created" });
 });
 
 app.listen(8080, () => {
