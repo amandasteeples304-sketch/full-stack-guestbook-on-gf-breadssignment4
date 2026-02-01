@@ -1,6 +1,7 @@
 const display = document.getElementById("app");
 const form = document.getElementById("gfbread");
-const baseURL = "https://client-f4df.onrender.com";
+const baseURL =
+  "https://postgres.kpiblvkkfqjgajsybyaw.supabase.co:6543/postgres";
 
 async function fetchData() {
   const response = await fetch(`${baseURL}/gfbread`);
@@ -14,17 +15,30 @@ async function fetchData() {
 async function displaygfbread() {
   const gfbread = await fetchData();
   console.log("displaygfbread");
-  gfbread.forEach((message) => {
-    const div = document.createElement("div");
-    const userName = document.createElement("p");
-    const breadBrand = document.createElement("p");
-    const breadOpinion = document.createElement("p");
+  gfbread.forEach(function (message) {
+    const gfbreadContainer = document.createElement("div");
+    gfbreadContainer.className.add = "gfbread-entry";
 
+    const userName = document.createElement("p");
     userName.textContent = message.name;
+
+    const breadBrand = document.createElement("p");
     breadBrand.textContent = message.bread_brand;
+
+    const breadOpinion = document.createElement("p");
     breadOpinion.textContent = message.opinion;
-    div.append(userName, breadBrand, breadOpinion);
-    display.appendChild(div);
+
+    const likeButton = document.createElement("button");
+    likeButton.addEventListener("click", function () {
+      alert("You liked this entry!");
+      likeButton.textContent = "Like";
+      likeButton.innerText = "Like";
+    });
+
+    div.append(userName, breadBrand, breadOpinion, likeButton);
+    gfbreadContainer.append(userName, breadBrand, breadOpinion, likeButton);
+
+    display.append(gfbreadContainer);
   });
 }
 displaygfbread();
