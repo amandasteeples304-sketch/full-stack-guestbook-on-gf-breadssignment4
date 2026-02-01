@@ -20,7 +20,7 @@ async function displaygfBreadGuest() {
     const breadBrand = document.createElement("p");
     const breadOpinion = document.createElement("p");
 
-    userName.textContent = message.msg_name;
+    userName.textContent = message.name;
     breadBrand.textContent = message.bread_brand;
     breadOpinion.textContent = message.opinion;
     div.append(userName, breadBrand, breadOpinion);

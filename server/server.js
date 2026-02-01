@@ -17,23 +17,24 @@ app.get("/", (request, response) => {
 });
 
 app.get("/gfbread", async (request, response) => {
-  const gfBread = await db.query("SELECT * FROM gfbread;");
+  const data = await db.query("SELECT * FROM gfbread;");
+  const gfBread = data.rows;
   console.log(request);
-  response.json(gfBread.rows);
+  response.status(200).json(gfBread);
 });
 
 app.post("/gfbread", async (request, response) => {
   console.log(request.body);
-  const nameFromClient = request.body.name;
-  const breadFromClient = request.body.bread;
-  const opinionFromClient = request.body.opinion;
-  const data = db.query(
-    `INSERT INTO gfbread (msg_name, bread_brand, opinion) VALUES ($1, $2, $3);`,
-    [nameFromClient, breadFromClient, opinionFromClient],
+  // const nameFromClient = request.body.name;
+  // const breadFromClient = request.body.bread;
+  // const opinionFromClient = request.body.opinion;
+  const dbQuery = await db.query(
+    `INSERT INTO gfbread (name, bread, opinion) VALUES ($1, $2, $3);`,
+    [request.body.name, request.body.bread, request.body.opinion],
   );
-  response.status(201).json({ message: "GF Bread Guestbook entry created" });
+  response.status(200).json({ message: "GF Bread Guestbook entry created" });
 });
 
-app.listen(8080, () => {
-  console.log("Server is alive on https://server-fmc0.onrender.com");
+app.listen(process.env.PORT || 5432, () => {
+  console.log("Server is alive on http://server-fmc0.onrender.com");
 });
