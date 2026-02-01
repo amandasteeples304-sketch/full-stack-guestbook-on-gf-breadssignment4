@@ -12,8 +12,13 @@ const db = new pg.Pool({
   connectionString: process.env.DB_CONN,
 });
 
-app.get("/", (req, res) => {
-  res.json({ message: "You're on my root route, how roode" });
+app.get("/", (request, response) => {
+  response.json({ message: "You've reached the GF Bread Guestbook server!" });
+});
+
+app.get("/gfBread", async (req, res) => {
+  const gfBread = await db.query("SELECT * FROM gf_bread_guestbook");
+  response.json(gfBread);
 });
 
 app.listen(8080, () => {
